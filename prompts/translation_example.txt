@@ -1,0 +1,120 @@
+Task Description: You are given a content description and a question. The task is to:
+
+define all the predicates
+write all the facts mentioned in the content
+parse the content into logic rules based on the defined predicates. Make sure to identify compound predicates and translate them using "or". Please note that conditional statements containing "if" are not considered as rules with compound predicates.
+parse the question into the logic form
+based on the premises and question, execute each step by selecting relevant premises and making inferences based on logic inference rules to solve the question.
+
+The definition of the three options are:
+
+True: A statement is "true" if it necessarily follows from the given premises using logical rules.
+
+False: A statement is "false" if it is contradicted by the premises or its negation is logically inferred from them.
+
+Unknown: A statement is "unknown" if there is insufficient information in the premises to determine its truth value conclusively.
+
+Please solve the question step by step. During each step, please indicate what first-order logic inference rules you used. Besides, show the inference process using logical operators including but not limited to: ⊕ (either or), ∨ (disjunction), ∧ (conjunction), → (implication), ∀ (universal), ∃ (existential), ¬ (negation), ↔ (equivalence). You can combine natural language and logical operators when doing inference.
+Please also highlight the final answer as "Final answer: {true/false/unknown}".
+
+We have proposed a new symbol "→H" that represents high probability, which is very likely. For example, A →H B, represents if A, then it is highly likely B.
+A → B means that if A is true, then B is true; if A is false, then B is false (although the premise is false).
+
+If the answers inferred from multiple paths are contradictory, choose the answer with the highest probability. Specifically:
+
+Rules with "→" (deterministic) have higher priority than rules with "→H" (probabilistic).
+
+If multiple rules are of the same type (e.g., both "→H"), consider contextual clues or stated probabilities; if no information is available, proceed to Step 3 for content analysis.
+
+Execution Steps:
+
+Step 1: Apply the Rules to the Given Facts
+List all facts and rules from the context.
+
+Apply first-order logic inference rules (e.g., Modus Ponens, Modus Tollens) to derive new facts from the given facts and rules.
+
+If multiple rules apply, apply them separately and note all possible inferences, including contradictions.
+
+Step 2: Determine if the Statement Can Be Inferred from Rules
+Based on the derivations from Step 1, check if the query can be directly inferred (true or false).
+
+If there are contradictory inferences (e.g., both true and false):
+
+Prefer rules with "→" over "→H" (deterministic rules override probabilistic ones).
+
+If all rules are probabilistic ("→H") or deterministic but still contradictory,  note that the statement cannot be inferred solely from rules.
+
+If no direct inference can be made, state that the statement cannot be inferred from the rules alone.
+
+Step 3: Evaluate the Content of the Tweet
+Analyze the tweet content (from the context) for any direct or indirect evidence related to the query. Consider hashtags, mentions, wording, and overall sentiment to infer support or opposition. This step provides additional evidence that may not be captured by the formal rules.
+
+Step 4: Conclude the Result
+Combine the results from Step 2 and Step 3:
+
+If Step 2 provides a clear inference (true or false) without contradiction, and Step 3 does not contradict it, use the same inference.
+
+If Step 2 has a contradiction (e.g., multiple inferences) but Step 3 provides strong evidence, use Step 3's result.
+
+If Step 2 cannot infer a result (unknown) and Step 3 provides evidence, use Step 3's result.
+
+If both Step 2 and Step 3 are inconclusive, return unknown.
+
+Highlight the final answer as "Final answer: {true/false/unknown}".
+**Final answer: {true/false/unknown}**
+------
+Below is an example:
+Context:
+The tweet is "wow all these people r so upset over 1 Black Man killed, what would they do if they knew about BlackKids killed by #BaltimoreRiots #SemST". The tweet supports ‘hard work'. All those who support God do not support atheism. If it supports science, then it supports atheism. All those who support lord do not support atheism.
+Question:
+The tweet supports Atheism.
+
+Predicates:
+- **Tweet($x, $content)**: Does x have the content specified?
+- **Supports($x,HardWork, bool)**: Does x support hard work?
+- **Supports($x,God, bool)**: Does x support God?
+- **Supports($x,Atheism, bool)**: Does x support Atheism?
+- **Supports($x,Science, bool)**: Does x support science?
+- **Supports($x,Lord, bool)**: Does x support Lord?
+
+Facts:
+- **Tweet(Tweet1, "wow all these people r so upset over 1 Black Man killed, what would they do if they knew about BlackKids killed by #BaltimoreRiots #SemST")**
+- **Supports(Tweet1,HardWork, True)**
+
+Rules:
+- **Supports($x,God, True) ↔ Supports($x,Atheism, false) ::: All those who support God do not support atheism.
+- **Supports($x,God, false) ↔ Supports($x,Atheism, true) ::: All those who support God do not support atheism.
+- **Supports($x,Lord, True) → Supports($x,Atheism, false) ::: All those who support Lord do not support atheism.
+- **Supports($x,Science, True) → Supports($x,Atheism, true) ::: If it supports science, then it supports atheism.
+
+Query:
+- **Supports(Tweet1,Atheism, True) ::: The tweet supports Atheism.
+
+Execution:
+
+#### Step 1: Apply the Rules to the Given Facts
+- The tweet supports "Hard Work," but there are no rules linking support for "Hard Work" to support for Atheism, God, Science, or Lord.
+- This tweet does not explicitly mention God, science, or Lord. Therefore, it does not provide direct evidence about whether Tweet1 supports Atheism, God, Science, or Lord.
+
+### Step 2: Determine if the Statement Can Be Inferred
+- From both rules and the given facts, we cannot be inferred.
+
+#### Step 3: Evaluate the Content of the Tweet
+- The content of Tweet1 is: "wow all these people r so upset over 1 Black Man killed, what would they do if they knew about BlackKids killed by #BaltimoreRiots #SemST".
+- This tweet does not explicitly mention God, science, or Lord. Therefore, it does not provide direct evidence about whether Tweet1 supports Atheism, God, Science, or Lord.
+
+#### Step 4: Conclude the result
+- Since we do not have any direct information about **Supports(Tweet1,God, ?)**, **Supports(Tweet1,Science, ?)**, or **Supports(Tweet1,Lord, ?)**, and the content of the tweet does not provide any implicit information related to these predicates, we cannot infer the value of **Supports(Tweet1,Atheism, ?)** from the given facts and rules.
+- Therefore, the statement **Supports(Tweet1,Atheism, ?)** remains unknown.
+
+**Final answer: {unknown}**
+------
+Execution: Please carefully execute step by step and solve the question given the above requirements and information. Please clearly indicate whether the question is true, false or unknown using square bracket {true/false/unknown}!!! The answer will only be either true, false or unknown.
+------
+Below is the one you need to translate and execution:
+Context:
+[[CONTEXT]]
+
+Question:
+[[QUESTION]]
+###

@@ -1,0 +1,35 @@
+Task Description: You are given two targets. The task is to answer the relationship between them, from the perspective of stance.
+------
+Below is an example:
+Input: God and atheism
+Output: All those who support God do oppose atheism.
+------
+Below is an example:
+Input: science and atheism
+Output: If it supports science, then it is highly likely to support atheism.
+------
+Below is an example:
+Input: Patience and atheism
+Output: none.
+###
+-----
+Below is an example:
+Input: Hillary Clinton and Hillary Clinton
+Output: All those who support Hillary Clinton support Hillary Clinton.
+###
+-----
+Below is an example:
+Input: hillary and Hillary Clinton
+Output: All those who support hillary support Hillary Clinton.
+###
+-----
+Below is an example:
+Input: god matter and abortion
+Output: If it supports god, then it is highly likely to oppose abortion.
+###
+-----
+Just one sentence to answer the relationship as examples above, no need to explain. No need to explain!
+-----
+Below is the one you need to answer:
+Input: {target1} and {target2}
+###
